@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import assets, { messagesDummyData } from '../assets/assets'
 import { formatMessageTime } from '../lib/utils';
 
 const ChatContainer = ({SelectedUser, setSelectedUser}) => {
   const scrollEnd = useRef();
-  useEffect(() => {
-    if (scrollEnd.current) {
-      scrollEnd.current.scrollIntoView({ behavior: 'smooth' });
+  useLayoutEffect(() => {
+    if (scrollEnd.current  || SelectedUser) {
+      scrollEnd.current.scrollIntoView({ behavior: 'smooth', block: 'end'  });
       
     }
     console.log("scrolled")
-  }, []);
+  }, [SelectedUser]);
 
   return SelectedUser ? (
     <div className='h-full overflow-scroll relative background-blur-lg'>
