@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import assets from '../assets/assets'
+import { AuthContext } from '../../context/AuthContext';
 
 const LoginPage = () => {
   const [currentState, setCurrentState] = useState("Sign up");
@@ -9,6 +10,8 @@ const LoginPage = () => {
   const [bio, setBio] = useState("");
   const [isSubmitted, setisSubmitted] = useState(false);
 
+  const { login } = useContext(AuthContext);
+
   const onSubmitHandler = (e) =>{
     e.preventDefault();
 
@@ -16,6 +19,8 @@ const LoginPage = () => {
       setisSubmitted(true);
       return;
     }
+
+    login(currentState === "Sign up" ? 'signup' : 'login', {fullName, email, bio, password});
   }
 
   return (
@@ -59,7 +64,7 @@ const LoginPage = () => {
 
       <div className='flex flex-col gap-2'>
         {currentState === "Sign up" ?(
-          <p className="text-sm text-gray-600">Already have an account? <span className='font-medium text-violet-500 cursor-pointer' onClick={()=>{setCurrentState("Login in"); setisSubmitted(false)}}>
+          <p className="text-sm text-gray-600">Already have an account? <span className='font-medium text-violet-500 cursor-pointer' onClick={()=>{setCurrentState("Login"); setisSubmitted(false)}}>
             Login here</span></p>
         ) : (
           <p className="text-sm text-gray-600">Create an account <span className='font-medium text-violet-500 cursor-pointer' onClick={()=>{setCurrentState("Sign up")}}>Click here</span></p>
