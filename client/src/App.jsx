@@ -10,7 +10,7 @@ const App = () => {
   const { authUser } = useContext(AuthContext);
 
   return (
-    <div className="bg-black bg-[url('./src/assets/bgImage.svg')] bg-contain bg-no-repeat">
+    <div className="bg-black bg-[url('/bgImage.svg')] bg-contain bg-no-repeat">
       <Toaster />
       <Routes>
         
